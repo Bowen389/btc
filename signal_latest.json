@@ -1,0 +1,19 @@
+{
+ "headline": "买入 $7,000（0%→70%）｜BTC $84,417｜信号日 2026-09-26",
+ "sig_date": "2026-09-26",
+ "run_time_cst": "2026-09-28T00:01+08:00",
+ "close": 84416.65,
+ "action": "买入",
+ "trade_usd": 7000,
+ "target": 0.7000000000000001,
+ "cur": 0.0,
+ "equity": 10000.0,
+ "cash_after": 2986.0,
+ "btc_after": 0.082922,
+ "strength": 0.525,
+ "score6": 6,
+ "stale": false,
+ "halted": false,
+ "floor_hit": false,
+ "auto": true
+}
