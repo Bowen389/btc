@@ -1,0 +1,222 @@
+{
+ "F1 离散趋势分(V1)": {
+  "2021": {
+   "map": "steep",
+   "boost": false,
+   "guard": false,
+   "tv": 0.4
+  },
+  "2022": {
+   "map": "steep",
+   "boost": false,
+   "guard": false,
+   "tv": 0.4
+  },
+  "2023": {
+   "map": "strict",
+   "boost": false,
+   "guard": false,
+   "tv": 0.3
+  },
+  "2024": {
+   "map": "strict",
+   "boost": false,
+   "guard": false,
+   "tv": 0.3
+  },
+  "2025": {
+   "map": "strict",
+   "boost": false,
+   "guard": false,
+   "tv": 0.3
+  },
+  "2026": {
+   "map": "strict",
+   "boost": false,
+   "guard": false,
+   "tv": 0.3
+  }
+ },
+ "F2 连续趋势强度": {
+  "2021": {
+   "scale": 2,
+   "offset": 0.0,
+   "gain": 1.5,
+   "tv": 0.3
+  },
+  "2022": {
+   "scale": 2,
+   "offset": 0.0,
+   "gain": 1.5,
+   "tv": 0.3
+  },
+  "2023": {
+   "scale": 2,
+   "offset": 0.0,
+   "gain": 1.5,
+   "tv": 0.3
+  },
+  "2024": {
+   "scale": 2,
+   "offset": 0.0,
+   "gain": 1.5,
+   "tv": 0.3
+  },
+  "2025": {
+   "scale": 2,
+   "offset": 0.0,
+   "gain": 1.5,
+   "tv": 0.3
+  },
+  "2026": {
+   "scale": 2,
+   "offset": 0.0,
+   "gain": 1.5,
+   "tv": 0.3
+  }
+ },
+ "F3 趋势分+研究增强": {
+  "2021": {
+   "b_rsi": false,
+   "b_candle": false,
+   "b_brk": false,
+   "b_bear": false,
+   "map": "steep",
+   "tv": 0.4
+  },
+  "2022": {
+   "b_rsi": false,
+   "b_candle": false,
+   "b_brk": true,
+   "b_bear": false,
+   "map": "steep",
+   "tv": 0.4
+  },
+  "2023": {
+   "b_rsi": true,
+   "b_candle": false,
+   "b_brk": true,
+   "b_bear": false,
+   "map": "steep",
+   "tv": 0.4
+  },
+  "2024": {
+   "b_rsi": true,
+   "b_candle": false,
+   "b_brk": true,
+   "b_bear": true,
+   "map": "linear",
+   "tv": 0.3
+  },
+  "2025": {
+   "b_rsi": false,
+   "b_candle": true,
+   "b_brk": false,
+   "b_bear": false,
+   "map": "strict",
+   "tv": 0.3
+  },
+  "2026": {
+   "b_rsi": true,
+   "b_candle": true,
+   "b_brk": false,
+   "b_bear": false,
+   "map": "linear",
+   "tv": 0.3
+  }
+ },
+ "F4 趋势+RSI2抄底": {
+  "2021": {
+   "min_score": 3,
+   "rsi_thr": 10,
+   "add": 0.4,
+   "tv": 0.4
+  },
+  "2022": {
+   "min_score": 3,
+   "rsi_thr": 10,
+   "add": 0.4,
+   "tv": 0.4
+  },
+  "2023": {
+   "min_score": 3,
+   "rsi_thr": 10,
+   "add": 0.4,
+   "tv": 0.4
+  },
+  "2024": {
+   "min_score": 4,
+   "rsi_thr": 10,
+   "add": 0.4,
+   "tv": 0.3
+  },
+  "2025": {
+   "min_score": 4,
+   "rsi_thr": 10,
+   "add": 0.4,
+   "tv": 0.3
+  },
+  "2026": {
+   "min_score": 4,
+   "rsi_thr": 10,
+   "add": 0.4,
+   "tv": 0.3
+  }
+ },
+ "F6 海龟突破+ATR追踪": {
+  "2021": {
+   "entry": 20,
+   "exit": 10,
+   "trail": 4,
+   "risk": 0.03,
+   "max_units": 4,
+   "filt200": false,
+   "tv": 0.4
+  },
+  "2022": {
+   "entry": 20,
+   "exit": 10,
+   "trail": 4,
+   "risk": 0.03,
+   "max_units": 4,
+   "filt200": false,
+   "tv": 0.4
+  },
+  "2023": {
+   "entry": 20,
+   "exit": 10,
+   "trail": 4,
+   "risk": 0.02,
+   "max_units": 4,
+   "filt200": true,
+   "tv": 0.4
+  },
+  "2024": {
+   "entry": 20,
+   "exit": 10,
+   "trail": 4,
+   "risk": 0.01,
+   "max_units": 4,
+   "filt200": false,
+   "tv": 0.4
+  },
+  "2025": {
+   "entry": 20,
+   "exit": 10,
+   "trail": 4,
+   "risk": 0.02,
+   "max_units": 4,
+   "filt200": false,
+   "tv": 0.4
+  },
+  "2026": {
+   "entry": 20,
+   "exit": 10,
+   "trail": 4,
+   "risk": 0.02,
+   "max_units": 4,
+   "filt200": false,
+   "tv": 9.9
+  }
+ }
+}

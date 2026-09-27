@@ -1,0 +1,103 @@
+name: BTC daily signal
+
+on:
+  schedule:
+    - cron: "10 0 * * *"      # 00:10 UTC = 每天 08:10 北京时间
+  workflow_dispatch:           # 手动运行：默认跑信号；也可用 mode 维护账本
+    inputs:
+      mode:
+        description: "signal=跑今日信号 | reinit=重置账户 | set=校正现金/BTC | record=记一笔实际成交"
+        type: choice
+        options: [signal, reinit, set, record]
+        default: signal
+      amount:
+        description: "reinit 用：起始资金 USD（如 10000）"
+        required: false
+      cash:
+        description: "set 用：现金 USD（留空不改）"
+        required: false
+      btc:
+        description: "set 用：BTC 数量（留空不改）"
+        required: false
+      trade_usd:
+        description: "record 用：成交金额 USD（正=买入，负=卖出）"
+        required: false
+      price:
+        description: "record 用：成交价"
+        required: false
+
+permissions:
+  contents: write              # 机器人把账本提交回仓库
+  issues: write                # 机器人开 Issue -> GitHub 自动邮件通知你（零配置）
+
+concurrency:
+  group: btc-ledger
+  cancel-in-progress: false
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      PYTHONIOENCODING: utf-8
+      TZ: Asia/Shanghai
+      # 可选：想额外走 SMTP 直发邮件才需要在 Secrets 里配置；不配置则自动跳过
+      MAIL_SERVER: ${{ secrets.MAIL_SERVER }}
+      MAIL_PORT: ${{ secrets.MAIL_PORT }}
+      MAIL_USERNAME: ${{ secrets.MAIL_USERNAME }}
+      MAIL_PASSWORD: ${{ secrets.MAIL_PASSWORD }}
+      MAIL_TO: ${{ secrets.MAIL_TO }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - run: pip install -r requirements.txt
+
+      - name: Ledger maintenance (manual modes only)
+        if: github.event_name == 'workflow_dispatch' && inputs.mode != 'signal'
+        shell: bash
+        run: |
+          case "${{ inputs.mode }}" in
+            reinit) python daily.py --init "${{ inputs.amount }}" ;;
+            set)    ARGS=""
+                    [ -n "${{ inputs.cash }}" ] && ARGS="$ARGS --cash ${{ inputs.cash }}"
+                    [ -n "${{ inputs.btc }}" ]  && ARGS="$ARGS --btc ${{ inputs.btc }}"
+                    python daily.py --set $ARGS ;;
+            record) python daily.py --record --usd "${{ inputs.trade_usd }}" --price "${{ inputs.price }}" ;;
+          esac
+          cat portfolio.json
+
+      - name: Generate today's signal (auto-book at close price)
+        id: signal
+        if: github.event_name == 'schedule' || inputs.mode == 'signal'
+        shell: bash
+        run: |
+          set -o pipefail
+          python daily.py --auto-execute 2>&1 | tee run.log
+
+      - name: Commit ledger & logs back to repo
+        if: always()
+        shell: bash
+        run: |
+          git config user.name "btc-signal-bot"
+          git config user.email "btc-signal-bot@users.noreply.github.com"
+          git add portfolio.json signals_log.csv btc_daily.csv signal_latest.txt signal_latest.json 2>/dev/null || true
+          git commit -m "ledger $(date -u +%F) [skip ci]" || echo "nothing to commit"
+          git pull --rebase origin "${GITHUB_REF_NAME}" || true
+          git push || echo "push failed"
+
+      - name: Notify via GitHub Issue (GitHub emails it to your bound mailbox)
+        if: always() && (github.event_name == 'schedule' || inputs.mode == 'signal')
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          OWNER: ${{ github.repository_owner }}
+        run: python post_issue.py ${{ steps.signal.outcome }}
+
+      - name: Send email via SMTP (optional)
+        if: always() && env.MAIL_SERVER != '' && (github.event_name == 'schedule' || inputs.mode == 'signal')
+        run: python send_mail.py ${{ steps.signal.outcome }}
