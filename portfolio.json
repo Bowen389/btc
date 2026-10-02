@@ -3,7 +3,7 @@
   "start_equity": 10000.0,
   "cash": 2986.0,
   "btc": 0.0829220301919112,
-  "peak_equity": 10000.0,
+  "peak_equity": 10021.82895080532,
   "halted": false,
   "pending": null,
   "trades": [
@@ -18,5 +18,5 @@
     }
   ],
   "rules": "V2 F2 连续趋势强度 tv0.4",
-  "last_eval": "2026-09-30"
+  "last_eval": "2026-10-01"
 }
