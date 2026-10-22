@@ -1,11 +1,18 @@
 {
   "start_date": "2026-09-27",
   "start_equity": 10000.0,
-  "cash": 6779.758,
-  "btc": 0.03564255994595795,
+  "cash": 5372.95,
+  "btc": 0.05235193827496537,
   "peak_equity": 10159.345187234983,
   "halted": false,
-  "pending": null,
+  "pending": {
+    "date": "2026-10-21",
+    "usd": 1404,
+    "target": 0.45,
+    "price": 84024.67,
+    "executed": true,
+    "auto": true
+  },
   "trades": [
     {
       "date": "2026-09-26",
@@ -69,8 +76,17 @@
       "qty": -0.017287,
       "fee": 2.82,
       "note": "auto@close"
+    },
+    {
+      "date": "2026-10-21",
+      "side": "BUY",
+      "usd": 1404,
+      "price": 84024.67,
+      "qty": 0.016709,
+      "fee": 2.81,
+      "note": "auto@close"
     }
   ],
   "rules": "V2 F2 连续趋势强度 tv0.4",
-  "last_eval": "2026-10-20"
+  "last_eval": "2026-10-21"
 }
