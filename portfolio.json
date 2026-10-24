@@ -5,14 +5,7 @@
   "btc": 0.017767038248940603,
   "peak_equity": 10159.345187234983,
   "halted": false,
-  "pending": {
-    "date": "2026-10-22",
-    "usd": -2812,
-    "target": 0.15000000000000002,
-    "price": 81307.16,
-    "executed": true,
-    "auto": true
-  },
+  "pending": null,
   "trades": [
     {
       "date": "2026-09-26",
@@ -97,5 +90,5 @@
     }
   ],
   "rules": "V2 F2 连续趋势强度 tv0.4",
-  "last_eval": "2026-10-22"
+  "last_eval": "2026-10-23"
 }
